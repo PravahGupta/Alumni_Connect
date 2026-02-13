@@ -1,0 +1,16 @@
+body{
+    color: black;
+    background-color: aliceblue;
+    margin: 5%;
+}
+
+h1{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    background-color: rgb(213, 252, 252);
+}
+
+
+a{
+    color: black;
+}

@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testscore</title>
+    <link rel="stylesheet" href="{% static 'testscore.css' %}">
+</head>
+<body>
+    <h1>Testscore of these students</h1>
+
+    <div>
+        <a href="{% url 'addscore' %}">Add Test Scores</a>
+        <a href="{% url 'viewscore' %}">View Test Scores</a>
+    </div>
+</body>
+</html>

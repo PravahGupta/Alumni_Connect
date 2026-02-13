@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testscore</title>
+    <link rel="stylesheet" href="{% static 'testscore.css' %}">
+</head>
+<body>
+    <h1>Testscore of students</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>subject1</th>
+            <th>subject2</th>
+            <th>subject3</th>
+            <th>subject4</th>
+        </tr>
+        {% for item in context %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.marks1 }}</td>
+            <td>{{ item.marks2 }}</td>
+            <td>{{ item.marks3 }}</td>
+            <td>{{ item.marks3 }}</td>
+        </tr>
+        
+    </table>
+</body>
+</html>
