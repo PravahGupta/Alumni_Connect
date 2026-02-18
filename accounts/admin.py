@@ -1,8 +1,7 @@
 from django.contrib import admin
-from accounts.models import Registrations
+from django.contrib.auth.admin import UserAdmin
+from .models import Registrations
 
-# Register your models here.
 @admin.register(Registrations)
-class Register(admin.ModelAdmin):
-    list_display = ("name", "email", "batch", "course")
-    exclude = ('password',)
+class RegisterAdmin(UserAdmin):
+    list_display = ['username', 'email', 'is_verified', 'is_staff']

@@ -1,27 +1,40 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import Registrations
+from .forms import RegistrationForm
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'accounts/landing.html')
+
+@login_required
+def dashboard(request):
+    return render(request, 'accounts/dashboard.html')
 
 def login(request):
-    return HttpResponse("Login is coming your way soon! please wait")
-
-def logout(request):
-    pass
-
-def registration(request):
-    print(request.POST)
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        course = request.POST.get('course')
-        batch = request.POST.get('batch')
-        register = Registrations(name=name, email=email, password=password, course=course, batch=batch)
-        register.save()
-        return redirect('login')
+        username = request.POST.get('username')
+        password = request.POST.get('verify')
 
-    return render(request, 'registration.html')
+        user = Registrations.objects.filter(
+            name=username,
+            password=password
+        ).first()
+        if user:
+            request.session['user_id'] = user.id
+            return redirect('dashboard')
+        else:
+            messages.error(request, "Username or Password does not match.")
+    return render(request, 'accounts/login.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = RegistrationForm()
+    return render(request, 'accounts/registration.html', {'form': form})

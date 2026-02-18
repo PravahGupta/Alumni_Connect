@@ -1,12 +1,44 @@
+from django.conf import settings
 from django.db import models
-from accounts.models import Registrations
+from batch.models import Batches
+from datetime import datetime
 
-# Create your models here.
+USER_TYPE_CHOICES = (
+    ('student', 'Student'),
+    ('alumni', 'Alumni'),
+)
+
 class Profile(models.Model):
-    user = models.OneToOneField(Registrations, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     full_name = models.CharField(max_length=150, blank=True)
-    user_type = models.CharField(max_length=50, blank=True)
+    user_type = models.CharField(
+        max_length=10,
+        choices=USER_TYPE_CHOICES,
+        default='student'
+    )
     graduation_year = models.IntegerField(null=True, blank=True)
+    batch = models.ForeignKey(Batches, related_name="profiles", on_delete=models.SET_NULL, 
+            null=True, blank=True)
+    course = models.CharField(max_length=50, blank=True)  # moved from old Registrations
 
     def __str__(self):
         return self.user.email
+    
+    def save(self, *args, **kwargs):
+        current_year = datetime.now().year
+        if self.graduation_year and self.graduation_year < current_year:
+            self.user_type = 'alumni'
+        else:
+            self.user_type = 'student'
+        super().save(*args, **kwargs)
+
+
+class BatchAdmin(models.Model):
+    is_batch_admin = models.BooleanField(default=False)
+
+class StatusChangeRequest(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    requested_user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES)
+    reason = models.TextField()
+    is_approved = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)

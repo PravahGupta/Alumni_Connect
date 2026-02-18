@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome | Alumni Connect{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Alumni Connect 🎓</h1>
+    <p>
+        Stay connected with your university alumni network.
+        Discover opportunities, share achievements, and grow together.
+    </p>
+
+    {% if not user.is_authenticated %}
+        <a href="{% url 'register' %}" class="btn">Join Now</a>
+    {% endif %}
+{% endblock %}

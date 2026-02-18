@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts',
     'profiles',
+    'batch',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -130,3 +131,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pravah936@gmail.com'
 EMAIL_HOST_PASSWORD = 'psgithedidhurkgv'  # NOT your real Gmail password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# this is the authentication
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+
+AUTH_USER_MODEL = 'accounts.Registrations'

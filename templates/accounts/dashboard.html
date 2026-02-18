@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Your Alumni Dashboard</h1>
+
+    <p>Welcome back, {{ user.first_name|default:user.username }}!</p>
+
+    <div>
+        <h3>Quick Links</h3>
+        <ul>
+            {% comment %} 
+            {% if user.profile.is_batch_admin %}
+                <a href="{% url 'batch_admin_panel' %}">Batch Admin Panel</a>
+            {% endif %}
+            <li><a href="{% url 'profile' user.id %}" style="color: rgb(0, 0, 0); text-decoration: none;">Update Profile</a></li> {% endcomment %}
+            <li><a href="{% url 'my_profile' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >My Profile</a></li>
+            <li>Search Alumni</li>
+            <li>Post an Opportunity</li>
+            <li><a href="{% url 'batch_list' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >View Batch</a></li>
+
+        </ul>
+    </div>
+{% endblock %}
