@@ -4,4 +4,4 @@ from .models import Registrations
 
 @admin.register(Registrations)
 class RegisterAdmin(UserAdmin):
-    list_display = ['username', 'email', 'is_verified', 'is_staff']
+    list_display = ['id', 'username', 'email', 'is_verified', 'is_staff']

@@ -16,9 +16,11 @@
             {% endif %}
             <li><a href="{% url 'profile' user.id %}" style="color: rgb(0, 0, 0); text-decoration: none;">Update Profile</a></li> {% endcomment %}
             <li><a href="{% url 'my_profile' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >My Profile</a></li>
-            <li>Search Alumni</li>
+            <li><a href="{% url 'search' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Search Alumni</a></li>
             <li>Post an Opportunity</li>
+            <li><a href="{% url 'alumni_dir' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Alumni Directory</a></li>
             <li><a href="{% url 'batch_list' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >View Batch</a></li>
+            
 
         </ul>
     </div>

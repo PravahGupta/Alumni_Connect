@@ -1,3 +1,4 @@
+from urllib import response
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -23,7 +24,19 @@ def login(request):
         ).first()
         if user:
             request.session['user_id'] = user.id
-            return redirect('dashboard')
+            response = redirect('dashboard')
+            try:
+                response.set_cookie(
+                key='user_id',
+                value=user.id,
+                httponly=True,
+                secure=True,
+                samesite='Lax'
+                )
+            except Registrations.DoesNotExist:
+                pass
+            return response
+
         else:
             messages.error(request, "Username or Password does not match.")
     return render(request, 'accounts/login.html')

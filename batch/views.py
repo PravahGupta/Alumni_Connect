@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.db.models import Count
 from .models import Batches
-from profiles.models import Profile
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def batch_list(request, batch_id=None):
     if batch_id is None:
         batch = request.user.profile.batch

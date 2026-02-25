@@ -8,6 +8,12 @@ USER_TYPE_CHOICES = (
     ('alumni', 'Alumni'),
 )
 
+class Skill(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     full_name = models.CharField(max_length=150, blank=True)
@@ -20,6 +26,14 @@ class Profile(models.Model):
     batch = models.ForeignKey(Batches, related_name="profiles", on_delete=models.SET_NULL, 
             null=True, blank=True)
     course = models.CharField(max_length=50, blank=True)  # moved from old Registrations
+    current_role = models.CharField(max_length=150, blank=True)
+    company = models.CharField(max_length=150, blank=True)
+    linkedin_url = models.URLField(blank=True)
+    github_url = models.URLField(blank=True)
+    skills = models.ManyToManyField(Skill, blank=True)
+    bio = models.TextField(blank=True)
+    open_to_mentor = models.BooleanField(default=False)
+    open_to_referral = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.email

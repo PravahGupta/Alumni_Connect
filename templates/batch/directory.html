@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Discover Mates{% endblock %}
+
+{% block content %}
+
+<li><a href="{% url 'search' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Search Alumni</a></li>
+<br>
+<br>
+<br>
+<form method="get">
+
+{% comment %} <input type="text" name="q" placeholder="Search name, username, company"> {% endcomment %}
+<select name="batch">
+  <option value="">All Batches</option>
+  {% for b in batches %}
+    <option value="{{ b.id }}">{{ b.name }}</option>
+  {% endfor %}
+</select>
+
+<select name="skill">
+  <option value="">All Skills</option>
+  {% for s in skills %}
+    <option value="{{ s.id }}">{{ s.name }}</option>
+  {% endfor %}
+</select>
+
+<input type="text" name="company" placeholder="Company">
+<label>
+  <input type="checkbox" name="mentor" value="true">
+  Open to mentor
+</label>
+
+<button type="submit">Apply</button>
+</form>
+<br>
+<br>
+<br>
+{% if page_obj %}
+  {% for profile in page_obj %}
+  <div class="card">
+    <h3>{{ profile.user }}</h3>
+    <p>Batch: {{ profile.batch }}</p>
+    <p>Company: {{ profile.company }}</p>
+
+    {% if profile.open_to_mentor %}
+      <span class="badge">Mentor</span>
+      
+    {% endif %}
+
+    <a href="{% url 'profile' profile.id %}">
+      View Profile
+    </a>
+  </div>
+  {% endfor %}
+{% else %}
+    <p>No alumni match your filters.</p>
+{% endif %}
+
+
+<br>
+<br>
+
+{% with request.GET.urlencode as query_string %}
+<div class="pagination">
+
+  {% if page_obj.has_previous %}
+    <a href="?{{ query_string }}&page=1">First</a>
+    <a href="?{{ query_string }}&page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  <span>
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+  </span>
+
+  {% if page_obj.has_next %}
+    <a href="?{{ query_string }}&page={{ page_obj.next_page_number }}">Next</a>
+    <a href="?{{ query_string }}&page={{ page_obj.paginator.num_pages }}">Last</a>
+  {% endif %}
+
+</div>
+{% endwith %}
+
+{% endblock %}

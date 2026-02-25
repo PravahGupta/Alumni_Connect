@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Discover Mates{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'see_profile' %}">
+    {% csrf_token %}
+    <label for="username">Search the profile by name</label>
+    <input type="text" name="username" id="username">
+    <button type="submit" class="badge">Submit</button>
+</form>
+
+<form action="{url 'alumni_search'}">
+    {% csrf_token %}
+    
+</form>
+
+{% endblock %}

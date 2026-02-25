@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Status Change Request
+{% endblock %}
+
+{% block content %}
+<h2>Do you wish to change your status?</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+</form>
+
+{% endblock %}

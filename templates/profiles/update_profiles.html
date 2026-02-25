@@ -7,9 +7,80 @@
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
+
+    <fieldset>
+        <legend><h3>Academic Info</h3></legend>
+
+        <div class="mb-3">
+            {{ form.full_name.label_tag }}
+            {{ form.full_name }}
+        </div>
+        <br>
+        <div class="mb-3">
+            {{ form.graduation_year.label_tag }}
+            {{ form.graduation_year }}
+        </div>
+        <br>
+        <div class="mb-3">
+            {{ form.batch.label_tag }}
+            {{ form.batch }}
+        </div>
+        <br>
+        <div class="mb-3">
+            {{ form.bio.label_tag }}
+            {{ form.bio }}
+        </div>
+    </fieldset>
+
+    <hr>
+    <fieldset>
+        <legend><h3>Professional Info</h3></legend>
+
+        <div class="mb-3">
+            {{ form.current_role.label_tag }}
+            {{ form.current_role }}
+        </div>
+        <br>
+        <div class="mb-3">
+            {{ form.company.label_tag }}
+            {{ form.company }}
+        </div>
+        <br>
+        <div class="mb-3">
+            {{ form.linkedin_url.label_tag }}
+            {{ form.linkedin_url }}
+        </div>
+        <br>
+        <div class="mb-3">
+            {{ form.github_url.label_tag }}
+            {{ form.github_url }}
+        </div>
+        <br>
+        <div class="mb-3">
+            {{ form.skills.label_tag }}
+            {{ form.skills }}
+        </div>
+    </fieldset>
+
+    <hr>
+    <fieldset>
+        <legend><h3>Availability</h3></legend>
+
+        <div class="form-check">
+            {{ form.open_to_mentor }}
+            {{ form.open_to_mentor.label_tag }}
+        </div>
+        <br>
+        <div class="form-check">
+            {{ form.open_to_referral }}
+            {{ form.open_to_referral.label_tag }}
+        </div>
+    </fieldset>
+
+    <br>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
 </form>
 
 <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+
 {% endblock %}

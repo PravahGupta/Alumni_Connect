@@ -1,26 +1,88 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<h1>Profile Page</h1>
+
+<h1>{{ profile_user.username }}'s Profile</h1>
 
 {% if profile.is_batch_admin %}
     <span class="badge bg-success">Batch Admin</span>
 {% endif %}
 
-<p><strong>Username:</strong> {{ profile_user.username }}</p>
+<hr>
 <p><strong>Email:</strong> {{ profile_user.email }}</p>
 <p><strong>Full Name:</strong> {{ profile_user.profile.full_name }}</p>
-<p><strong>User Type:</strong> {{ profile_user.profile.user_type }}</p>
+<p><strong>User Type:</strong> {{ profile_user.profile.user_type|title }}</p>
 <p><strong>Graduation Year:</strong> {{ profile_user.profile.graduation_year }}</p>
-<p><strong>Batch:</strong> {{ profile_user.profile.batch.batch_name }}</p>
 
-{% if request.user.is_authenticated and request.user.id == profile_user.id %}
-    <a href="{% url 'update_profile' %}">Update Profile</a>
+<hr>
+<h3>Academic Info</h3>
+<p><strong>Batch:</strong> 
+    {% if profile_user.profile.batch %}
+        {{ profile_user.profile.batch.batch_name }}
+    {% else %}
+        Not specified
+    {% endif %}
+</p>
+<hr>
+
+<h3>Professional Info</h3>
+<p><strong>Role:</strong> {{ profile_user.profile.current_role|default:"Not specified" }}</p>
+<p><strong>Company:</strong> {{ profile_user.profile.company|default:"Not specified" }}</p>
+<p><strong>Skills:</strong></p>
+
+{% if profile_user.profile.skills.all %}
+    {% for skill in profile_user.profile.skills.all %}
+    <span class="badge">{{ skill.name }}</span>
+    {% empty %}
+        <p>No skills added.</p>
+    {% endfor %}
+{% else %}
+    <p>No skills added.</p>
 {% endif %}
-<br>
+
+<hr>
+<h3>Availability</h3>
+{% if profile_user.profile.open_to_mentor %}
+    <span class="badge bg-success">Open to Mentorship</span>
+{% else %}
+    <span class="badge bg-secondary">Not Open to Mentorship</span>
+{% endif %}
+
+{% if profile_user.profile.open_to_referral %}
+    <span class="badge bg-info text-dark">Open to Referral</span>
+{% else %}
+    <span class="badge bg-secondary">Not Open to Referral</span>
+{% endif %}
+
+<hr>
+<h3>External Links</h3>
+{% if profile_user.profile.linkedin_url %}
+    <p>
+        <a href="{{ profile_user.profile.linkedin_url }}" target="_blank">
+            LinkedIn
+        </a>
+    </p>
+{% endif %}
+
+{% if profile_user.profile.github_url %}
+    <p>
+        <a href="{{ profile_user.profile.github_url }}" target="_blank">
+            GitHub
+        </a>
+    </p>
+{% endif %}
+
+{% if not profile_user.profile.linkedin_url and not profile_user.profile.github_url %}
+    <p>No external links provided.</p>
+{% endif %}
+
+<hr>
+{% if request.user.is_authenticated and request.user.id == profile_user.id %}
+    <a href="{% url 'update_profile' %}" class="btn btn-primary">Update Profile</a>
+{% endif %}
+<br><br>
 <a href="{% url 'dashboard' %}">Back to Dashboard</a>
-<br>
 
 {% endblock %}
