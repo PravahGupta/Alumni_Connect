@@ -1,6 +1,5 @@
 from django import forms
-from .models import Profile, StatusChangeRequest, Skill
-from batch.models import Batches
+from .models import Profile, StatusChangeRequest
 
 
 class ProfileForm(forms.ModelForm):

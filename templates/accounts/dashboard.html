@@ -7,6 +7,12 @@
 
     <p>Welcome back, {{ user.first_name|default:user.username }}!</p>
 
+    {% if messages %}
+        {{ messages }}
+        {% for message in messages %}
+            <p style="color:black;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
     <div>
         <h3>Quick Links</h3>
         <ul>
@@ -17,11 +23,19 @@
             <li><a href="{% url 'profile' user.id %}" style="color: rgb(0, 0, 0); text-decoration: none;">Update Profile</a></li> {% endcomment %}
             <li><a href="{% url 'my_profile' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >My Profile</a></li>
             <li><a href="{% url 'search' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Search Alumni</a></li>
-            <li>Post an Opportunity</li>
+            <li>Post an Opportunity - Coming Soon</li>
             <li><a href="{% url 'alumni_dir' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Alumni Directory</a></li>
             <li><a href="{% url 'batch_list' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >View Batch</a></li>
-            
-
+            <li><a href="{% url 'statusviews' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >
+            See Requests Status</a></li>
+            {% if user.profile.open_to_mentor %}
+            <li><a href="{% url 'mentorRequestView' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >
+            See the Mentor Requests</a></li>
+            {% endif %}
+            {% if user.is_staff %}
+            <li><a href="{% url 'adminpanel' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >
+            Admin Panel</a></li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}

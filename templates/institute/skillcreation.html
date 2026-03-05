@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Skill{% endblock %}
+
+{% block content %}
+
+<h2>Create Skill</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+<label>Skill Name:</label><br>
+<input type="text" name="name" required>
+<br><br>
+
+<button type="submit">Add Skill</button>
+
+</form>
+{% endblock %}

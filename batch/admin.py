@@ -4,6 +4,4 @@ from .models import Batches
 # Register your models here.
 @admin.register(Batches)
 class AdminBatch(admin.ModelAdmin):
-    list_display = ('id', 'batch_name', 'start_year', 'end_year')
-
-    
+    list_display = ('id', 'program_name', 'batch_name', 'start_year', 'end_year')

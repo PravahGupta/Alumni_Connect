@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}University Creation{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <h2>Create Program</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Institute:</label>
+        {{ form.institute }}
+        <br><br>
+
+        <label>Program Name:</label>
+        {{ form.name }}
+        <br><br>
+
+        <label>Degree Level:</label>
+        {{ form.degree_level }}
+        <br><br>
+
+        <label>Allowed Strength:</label>
+        {{ form.allowed_strength }}
+        <br><br>
+
+        <button type="submit">Create Program</button>
+    </form>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from accounts.models import Registrations
+from accounts.models import Registrations, MentorshipRequest
 from .models import Profile, Skill
 from batch.models import Batches
 from .forms import ProfileForm
@@ -102,3 +102,34 @@ def alumni_dir(request):
         "skills": Skill.objects.all(),
     })
 
+@login_required
+def mentorRequestView(request):
+    username = request.user.username
+    profile = request.user.profile
+    print(username, profile)
+    mentor_obj = MentorshipRequest.objects.filter(receiver=profile)
+    print(mentor_obj)
+
+    return render(request, 'profiles/mentorReqList.html', {'mentor_obj':mentor_obj})
+
+@login_required
+def update_request_status(request, request_id):
+    mentorship = get_object_or_404(MentorshipRequest, id=request_id)
+
+    # Only receiver can update
+    if mentorship.receiver != request.user.profile:
+        return 403
+
+    if request.method == 'POST':
+        new_status = request.POST.get('status_choice')
+        if new_status in ['pending', 'accepted', 'declined']:
+            mentorship.status_choice = new_status
+            mentorship.save(update_fields=['status_choice', 'updated_at'])
+    return redirect('mentorRequestView')
+
+@login_required
+def statusview(request):
+    userid = request.user.id
+    mentor_obj = MentorshipRequest.objects.filter(sender=userid)
+    print(mentor_obj)
+    return render(request, 'profiles/viewRequest.html', {'mentor_obj':mentor_obj})

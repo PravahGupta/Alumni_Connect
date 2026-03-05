@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}University Creation{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %} <p style="color:red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+<h3>Admin Actions</h3>
+
+<ul>
+    <li><a href="{% url 'create_university'  %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Create University</a></li>
+    <li><a href="{% url 'create_institution' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Create Institution</a></li>
+    <li><a href="{% url 'create_program' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Create Program</a></li>
+    <li><a href="{% url 'create_skill' %}" style="color: rgb(0, 0, 0); text-decoration: none;">Create Skill</a></li>
+    <li><a href="{% url 'create_batch' %}" style="color: rgb(0, 0, 0); text-decoration: none;">Create Batch</a></li>
+</ul>
+
+{% endblock %}

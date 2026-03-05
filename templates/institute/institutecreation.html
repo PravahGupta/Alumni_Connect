@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Institute Creation{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <h2>Create Institution</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Institute Name:</label>
+        {{ form.institute_name }}
+
+        <br><br>
+
+        <label>University:</label>
+        {{ form.university }}
+
+        <br><br>
+
+        <button type="submit">Create Institution</button>
+    </form>
+
+{% endblock %}

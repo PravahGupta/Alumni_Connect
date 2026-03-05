@@ -5,6 +5,7 @@
 {% block content %}
 
 <li><a href="{% url 'search' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >Search Alumni</a></li>
+<li><a href="{% url 'connections' %}" style="color: rgb(0, 0, 0); text-decoration: none;" >See Connections</a></li>
 <br>
 <br>
 <br>
@@ -45,7 +46,8 @@
 
     {% if profile.open_to_mentor %}
       <span class="badge">Mentor</span>
-      
+      <li><a href="{% url 'mentorshipRequest' profile.id %}" style="color: rgb(0, 0, 0); text-decoration: none;" >
+        Request Mentorship</a></li>
     {% endif %}
 
     <a href="{% url 'profile' profile.id %}">

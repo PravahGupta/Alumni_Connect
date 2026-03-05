@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'accounts',
     'profiles',
     'batch',
+    'institution',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -138,3 +139,5 @@ LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
 
 AUTH_USER_MODEL = 'accounts.Registrations'
+
+USE_TZ = True

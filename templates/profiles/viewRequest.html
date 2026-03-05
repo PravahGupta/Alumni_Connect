@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Request list
+{% endblock %}
+
+{% block content %}
+
+{% if mentor_obj %}
+    {% for mentor in mentor_obj %}
+        <p>{{mentor.receiver}}&nbsp;&nbsp;&nbsp;{{mentor.subject}} &nbsp;&nbsp;&nbsp; {{mentor.message}}</p>
+        <form action="">
+            <p>{{mentor.status_choice}}</p>
+        </form>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}

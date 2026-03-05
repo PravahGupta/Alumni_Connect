@@ -7,4 +7,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('register/', views.register, name='register'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('mentorshipRequest/<int:receiver>/', views.mentorshipRequest, name='mentorshipRequest'),
+    path('connections', views.viewConnections, name="connections"),
+    path('adminpanel', views.adminpanel, name='adminpanel'),
 ]

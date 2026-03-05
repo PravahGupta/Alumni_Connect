@@ -36,7 +36,7 @@ class Profile(models.Model):
     open_to_referral = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.email
+        return self.user.username
     
     def save(self, *args, **kwargs):
         current_year = datetime.now().year

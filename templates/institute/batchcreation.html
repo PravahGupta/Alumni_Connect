@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Batch{% endblock %}
+
+{% block content %}
+
+<h2>Create Batch</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+<label>Program:</label><br>
+<select name="program_name" required>
+    {% for program in programs %}
+        <option value="{{ program.id }}">
+            {{ program.name }} - {{ program.institute.institute_name }}
+        </option>
+    {% endfor %}
+</select>
+<br><br>
+
+<label>Batch Name:</label><br>
+<input type="text" name="batch_name" required>
+<br><br>
+
+<label>Start Year:</label><br>
+<input type="number" name="start_year" required>
+<br><br>
+
+<label>End Year:</label><br>
+<input type="number" name="end_year" required>
+<br><br>
+
+<button type="submit">Create Batch</button>
+
+</form>
+
+{% endblock %}

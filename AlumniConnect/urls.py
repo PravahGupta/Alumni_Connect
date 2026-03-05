@@ -17,12 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from accounts import views as accounts_views
-# from profiles import views as profile_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', accounts_views.index, name='index'),
-    path('accounts/', include('accounts.urls')),  # include accounts app URLs
-    path('profiles/', include('profiles.urls')),  # optional, for profile-related views
-    path('batch/', include('batch.urls')),        # optional, for batch views
+    path('accounts/', include('accounts.urls')),
+    path('profiles/', include('profiles.urls')),
+    path('batch/', include('batch.urls')),
+    path('institution/', include('institution.urls')),
 ]

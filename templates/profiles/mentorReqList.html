@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Request list
+{% endblock %}
+
+{% block content %}
+
+{% if mentor_obj %}
+    {% for mentor in mentor_obj %}
+        <p>{{mentor.sender}}&nbsp;&nbsp;&nbsp;{{mentor.subject}} &nbsp;&nbsp;&nbsp; {{mentor.message}}</p>
+        <form method="post" action="{% url 'update_request_status' mentor.id %}">
+            {% csrf_token %}
+            <label for="status_{{ mentor.id }}">Status:</label>
+            <select name="status_choice" id="status_{{ mentor.id }}">
+                <option value="pending" {% if mentor.status_choice == 'pending' %}selected{% endif %}>Pending</option>
+                <option value="accepted" {% if mentor.status_choice == 'accepted' %}selected{% endif %}>Accepted</option>
+                <option value="declined" {% if mentor.status_choice == 'declined' %}selected{% endif %}>Declined</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
